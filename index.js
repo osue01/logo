@@ -60,12 +60,61 @@ function runPrompt() {
     .then((answers) => {
       console.log("Answers:", answers);
       console.log("Creating your logo");
+      init(answers);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
 
+// Function to write data to file
+function writeToFile(fileName, data) {
+  console.log("Writing [" + data + "] to file [" + fileName + "]");
+
+  fs.writeFile(fileName, data, function (err) {
+    if (err) {
+      console.error("Error writing to file:", err);
+      return;
+    }
+
+    console.log(
+      "Your logo has been successfully generated and written to the file!"
+    );
+  });
+}
+
+//Use responsess
+async function init(answers) {
+  console.log("Starting init");
+  var svgString = "";
+  var svg_file = "logo.svg";
+
+  const userText = answers.text;
+  const textColor = answers["text-color"];
+  const shapeColor = answers["shape-color"];
+  const selectedShape = answers.shape;
+
+  // Create the shape object based on the selected shape
+  let userShape;
+  if (selectedShape === "Square") {
+    userShape = new Square();
+  } else if (selectedShape === "Circle") {
+    userShape = new Circle();
+  } else if (selectedShape === "Triangle") {
+    userShape = new Triangle();
+  }
+
+  // Set text and shape elements in the Svg instance
+  newSvg.setTextEl(userText, textColor);
+  newSvg.setShapeEl(userShape);
+
+  // Generate the SVG content
+  svgString = `<svg width="${newSvg.width}" height="${newSvg.height}">${newSvg.textEl}${newSvg.shapeEl}</svg>`;
+
+  // Write the SVG content to a file
+  writeToFile(svg_file, svgString);
+}
+
+
 runPrompt();
 
-//Function to write data to file
