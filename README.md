@@ -12,6 +12,7 @@ Install inquirere@8.2.4
 In the terminal, run index.js and answer questions as they are prompted.
 
 Video Link
+https://drive.google.com/file/d/1Qec_561goc-VtFASjZ3La0mJYoJBHn5c/view
 
 Challenges
 I stuggled with writing the test portion and with having the file create an actual svg.
