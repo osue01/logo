@@ -20,7 +20,8 @@ class Svg {
     this.textEl = `<text x="150" y="125" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`;
   }
 
-  setShapeEl(shape) {
+  setShapeEl(shape, color) {
+    shape.setColor(color);
     this.shapeEl = shape.render();
   }
 }
@@ -106,15 +107,13 @@ async function init(answers) {
 
   // Set text and shape elements in the Svg instance
   newSvg.setTextEl(userText, textColor);
-  newSvg.setShapeEl(userShape);
+  newSvg.setShapeEl(userShape, shapeColor);
 
   // Generate the SVG content
-  svgString = `<svg width="${newSvg.width}" height="${newSvg.height}">${newSvg.textEl}${newSvg.shapeEl}</svg>`;
+  svgString = `<svg width="${newSvg.width}" height="${newSvg.height}" xmlns="http://www.w3.org/2000/svg">${newSvg.shapeEl}${newSvg.textEl}</svg>`;
 
   // Write the SVG content to a file
   writeToFile(svg_file, svgString);
 }
 
-
 runPrompt();
-
